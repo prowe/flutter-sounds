@@ -11,7 +11,13 @@ class InstrumentFamily {
       InstrumentFamily (
         'Strings',
         [
-          Instrument('Bass Violin')
+          Instrument('Bass Violin'),
+          Instrument('Violin'),
+          Instrument('Ukelele'),
+          Instrument('Guitar'),
+          Instrument('Banjo'),
+          Instrument('Acoustic Guitar'),
+          Instrument('Electric Guitar'),
         ]
       ),
       InstrumentFamily(
