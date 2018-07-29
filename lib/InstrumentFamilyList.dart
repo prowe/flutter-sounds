@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'InstrumentFamily.dart';
+import 'InstrumentFamilyView.dart';
 
 class InstrumentFamilyList extends StatefulWidget {
   @override
@@ -6,42 +8,40 @@ class InstrumentFamilyList extends StatefulWidget {
 }
 
 class InstrumentFamilyState extends State<InstrumentFamilyList> {
-  static const FAMILIES = [
-    'Strings',
-    'Wind',
-    'Keyboard',
-    'Percussion'
-  ];
+  var families = InstrumentFamily.all();
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       padding: const EdgeInsets.all(16.0),
       itemBuilder: (context, i) {
-        if (i >= FAMILIES.length) {
+        if (i >= families.length) {
           return null;
         }
-        return ListTile(
-          title: Text(
-            FAMILIES[i]
-          ),
-          onTap: _selectFamily,
-        );
+        return InstrumentFamilyListItem(context, families[i]);
       }
+    );
+  }
+}
+
+class InstrumentFamilyListItem extends StatelessWidget {
+  final InstrumentFamily family;
+  final BuildContext context;
+
+  InstrumentFamilyListItem(this.context, this.family);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      title: Text(family.name),
+      onTap: _selectFamily,
     );
   }
 
   void _selectFamily() {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) {
-          return Scaffold(
-            appBar: AppBar(
-              title: Text('Instrument'),
-            ),
-            body: Text('Instrument text')
-          );
-        },
+        builder: (context) => InstrumentFamilyView(family),
       ),
     );
   }
