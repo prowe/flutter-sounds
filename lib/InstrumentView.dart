@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'Instrument.dart';
 
 class InstrumentView extends StatelessWidget {
+  static const platform = const MethodChannel('com.rowe.flutter_sounds/play');
   final Instrument instrument;
 
   InstrumentView(this.instrument);
@@ -12,7 +14,14 @@ class InstrumentView extends StatelessWidget {
       appBar: AppBar(
         title: Text(instrument.name),
       ),
-      body: Text('This is where the notes go')
+      body: FlatButton(
+        child: Text('Play Note'),
+        onPressed: _playNote,
+      )
     );
+  }
+
+  void _playNote() {
+    platform.invokeMethod('play_note');
   }
 }
